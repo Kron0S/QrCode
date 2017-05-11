@@ -115,6 +115,16 @@ class QrCode
     /**
      * @var bool
      */
+    protected $haveLogo;
+
+    /**
+     * @var string
+     */
+    protected $logoData;
+
+    /**
+     * @var bool
+     */
     protected $validateResult = false;
 
     /**
@@ -417,6 +427,34 @@ class QrCode
     }
 
     /**
+     * @return bool
+     */
+    public function isHaveLogo()
+    {
+        return $this->haveLogo;
+    }
+
+    /**
+     * @param string $logoData
+     * @return $this
+     */
+    public function setLogoData($logoData)
+    {
+        $this->logoData = $logoData;
+        $this->haveLogo = true;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoData()
+    {
+        return $this->logoData;
+    }
+
+    /**
      * @param string $logoPath
      * @return $this
      * @throws InvalidPathException
@@ -430,6 +468,7 @@ class QrCode
         }
 
         $this->logoPath = $logoPath;
+        $this->haveLogo = true;
 
         return $this;
     }

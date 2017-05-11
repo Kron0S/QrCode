@@ -107,11 +107,17 @@ class PngWriter extends AbstractBaconWriter
      */
     protected function addLogo($sourceImage)
     {
-        if ($this->qrCode->getLogoPath() === null) {
+        if (!$this->qrCode->isHaveLogo()) {
             return $sourceImage;
         }
 
-        $logoImage = imagecreatefromstring(file_get_contents($this->qrCode->getLogoPath()));
+		if ($this->qrCode->getLogoPath()) {
+			$data = file_get_contents($this->qrCode->getLogoPath());
+		} else {
+			$data = $this->qrCode->getLogoData();
+		}
+		
+        $logoImage = imagecreatefromstring($data);
         $logoSourceWidth = imagesx($logoImage);
         $logoSourceHeight = imagesy($logoImage);
         $logoTargetWidth = $this->qrCode->getLogoSize();
